@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+setcolor
+
+test() {
+  go test ./...
+}
