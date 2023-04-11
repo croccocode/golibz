@@ -1,6 +1,9 @@
 package env
 
-import "testing"
+import (
+	"errors"
+	"testing"
+)
 
 func TestGetEnv(t *testing.T) {
 	pwd, err := GetEnv("PWD")
@@ -22,4 +25,18 @@ func TestGetEnv(t *testing.T) {
 	if bestPodcastEver != "Tintoriaaaa" {
 		t.Errorf("excpected 'Tintoriaaaa' gto %s", bestPodcastEver)
 	}
+}
+
+func TestPanicIfErr(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Errorf("The code did not panic")
+		}
+	}()
+
+	PanicIfErr(errors.New("top"))
+}
+
+func TestNoErrNoPanic(t *testing.T) {
+	PanicIfErr(nil)
 }
